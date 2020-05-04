@@ -1,3 +1,40 @@
+//codigo para que funcione en ios
+
+var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+function SpeakText() {
+    var msg = new SpeechSynthesisUtterance();
+    window.speechSynthesis.speak(msg);
+
+    document.getElementsByClassName("wc-mic")[0].removeEventListener("click", SpeakText);
+}
+
+if (isSafari) {
+
+    window.addEventListener("load", function () {
+        document.getElementsByClassName("wc-mic")[0].addEventListener("click", SpeakText);
+    });
+}
+
+// Needed to change between the two audio contexts
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+
+// Sets the old style getUserMedia to use the new style that is supported in more browsers even though the framework uses the new style
+if (window.navigator.mediaDevices.getUserMedia && !window.navigator.getUserMedia) {
+    window.navigator.getUserMedia = function (constraints, successCallback, errorCallback) {
+        window.navigator.mediaDevices.getUserMedia(constraints)
+            .then(function (e) {
+                successCallback(e);
+            })
+            .catch(function (e) {
+                errorCallback(e);
+            });
+    };
+}
+
+//
+
+
 try {
   var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   var recognition = new SpeechRecognition();
@@ -12,9 +49,18 @@ catch(e) {
 var noteTextarea = $('#note-textarea');
 var instructions = $('#recording-instructions');
 var notesList = $('ul#notes');
-
+var questionOne=document.getElementById('question-one')
+var questionTwo=document.getElementById('question-two')
 var noteContent = '';
-
+let timer = new Timer();
+timer.start();
+timer.addEventListener('secondsUpdated', function(e) {
+  $('#timer').html(timer.getTimeValues().toString());
+  if (timer.getTimeValues().toString()=="00:00:05"){
+    questionOne.classList.add('hide')
+    questionTwo.classList.remove('hide')
+  }
+})
 // Get all notes from previous sessions and display them.
 var notes = getAllNotes();
 renderNotes(notes);
@@ -84,7 +130,11 @@ $('#pause-record-btn').on('click', function(e) {
   recognition.stop();
   instructions.text('Voice recognition paused.');
 });
-
+$('#next-question-btn').on('click', function(e) {
+  console.log("Algo")
+  questionOne.classList.add('hide')
+  questionTwo.classList.remove('hide')
+});
 // Sync the text inside the text area with the noteContent variable.
 noteTextarea.on('input', function() {
   noteContent = $(this).val();

@@ -8,6 +8,7 @@
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css">
         <link rel="stylesheet" href="styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
 
     </head>
     <body>
@@ -18,8 +19,29 @@
                 TICSm-GNA</p>
             <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>
 
-            <div class="app"> 
+            <div class="app" id="question-one">
+                <div id="timer">00:00:00</div>
                 <h3>Agregar texto</h3>
+                <div class="input-single">
+                    <textarea id="note-textarea" placeholder="Escriba algo o use el reconocimiento de voz." rows="6"></textarea>
+                </div>         
+                <button id="start-record-btn" title="Start Recording">Comenzar reconocmiento</button>
+                <button id="pause-record-btn" title="Pause Recording">Pausar reconocimiento</button>
+                <button id="next-question-btn" title="Next question">Siguiente pregunta</button>
+                <!--<button id="save-note-btn" title="Save Note">Save Note</button> !-->
+                <p id="recording-instructions">Presione el botón <strong>Comenzar reconocimiento</strong> y permita el acceso al microfono.</p>
+                
+                <!--<h3>My Notes</h3>!-->
+                <ul id="notes">
+                    <li>
+                        <!--<p class="no-notes">You don't have any notes.</p>!-->
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="app hide" id="question-two"> 
+                <h3>Segunda pregunta</h3>
                 <div class="input-single">
                     <textarea id="note-textarea" placeholder="Escriba algo o use el reconocimiento de voz." rows="6"></textarea>
                 </div>         
@@ -41,6 +63,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="script.js"></script>
+        
 
 
     </body>
