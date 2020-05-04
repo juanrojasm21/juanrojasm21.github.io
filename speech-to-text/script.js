@@ -56,7 +56,7 @@ let timer = new Timer();
 timer.start();
 timer.addEventListener('secondsUpdated', function(e) {
   $('#timer').html(timer.getTimeValues().toString());
-  if (timer.getTimeValues().toString()=="00:00:15"){
+  if (timer.getTimeValues().toString()=="00:00:20"){
     questionOne.classList.add('hide')
     questionTwo.classList.remove('hide')
   }
