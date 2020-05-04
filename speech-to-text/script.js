@@ -1,38 +1,3 @@
-//codigo para que funcione en ios
-
-var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-function SpeakText() {
-    var msg = new SpeechSynthesisUtterance();
-    window.speechSynthesis.speak(msg);
-
-    document.getElementsByClassName("wc-mic")[0].removeEventListener("click", SpeakText);
-}
-
-if (isSafari) {
-
-    window.addEventListener("load", function () {
-        document.getElementsByClassName("wc-mic")[0].addEventListener("click", SpeakText);
-    });
-}
-
-// Needed to change between the two audio contexts
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-
-// Sets the old style getUserMedia to use the new style that is supported in more browsers even though the framework uses the new style
-if (window.navigator.mediaDevices.getUserMedia && !window.navigator.getUserMedia) {
-    window.navigator.getUserMedia = function (constraints, successCallback, errorCallback) {
-        window.navigator.mediaDevices.getUserMedia(constraints)
-            .then(function (e) {
-                successCallback(e);
-            })
-            .catch(function (e) {
-                errorCallback(e);
-            });
-    };
-}
-
-//
 
 
 try {
