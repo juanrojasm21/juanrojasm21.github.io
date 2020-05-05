@@ -1,5 +1,5 @@
 <?php
-
+//comentario de php
 class DB{
     private $host;
     private $db;
